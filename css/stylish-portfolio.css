@@ -50,56 +50,26 @@ h6 {
 
 /**Quiz CSS**/
 
-.question{
-  font-size: 30px;
-  margin-bottom: 10px;
-}
-.answers {
-  margin-bottom: 20px;
-  text-align: left;
-  display: inline-block;
-}
-.answers label{
-  display: block;
-  margin-bottom: 10px;
-}
-button{
-  font-family: 'Work Sans', sans-serif;
-    font-size: 22px;
-    background-color: brown;
-    color: green;
-    border: 0px;
+
+    .btn-green {
+    background-color: #1ab394;
+    color: #fff;
     border-radius: 3px;
-    padding: 20px;
-    cursor: pointer;
-    margin-bottom: 20px;
 }
-button:hover{
-    background-color: #38a;
-}
+    .btn-green:hover,.btn-green:focus {
+      background-color: #18a689;
+      color: #fff;
+    }
+  
+  .my-rating {
+    font-size: 12px;
+  }
+  
+  .panel-footer {
+      background-color: #fff;
+      text-align: right;
+  }
 
-
-
-
-
-.slide{
-  position: absolute;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  z-index: 1;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-.active-slide{
-  opacity: 1;
-  z-index: 2;
-}
-.quiz-container{
-  position: relative;
-  height: 200px;
-  margin-top: 40px;
-}
 
 /**End Quiz Style Rules**/
 

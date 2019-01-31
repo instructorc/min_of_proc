@@ -1,156 +1,111 @@
-(function() {
-    //these are the quiz questions
-    const quizQuestions = [
-      {
-        question: "How long can turtles live?",
-        answers: {
-          a: "10 years",
-          b: "100 years",
-          c: "500 years",
-          d: "Turtles are immortal beings, untouched by time"
-        },
-        correctAnswer: "b"
-      },
-      {
-        question: "Turtles are",
-        answers: {
-          a: "Cold Blooded",
-          b: "Warm Blooded",
-          c: "Hot Blooded"
-        },
-        correctAnswer: "a"
-      },
-      {
-        question: "Male tortises will fight each other until",
-        answers: {
-          a: "One dies",
-          b: "One flips over",
-          c: "The bell rings",
-          d: "They survey the damage of the battle, and see all they love lies in ruin."
-        },
-        correctAnswer: "b"
-      },
-      {
-        question: "What is the force of a Blastois's Hydro Pump?",
-        answers: {
-          a: "100 Newtons",
-          b: "500 Newtons",
-          c: "1.7 Mega Newtons"
-        },
-        correctAnswer: "c"
-      },
-      {
-        question: "What does the world turtle stand on?",
-        answers: {
-          a: "An elephant",
-          b: "Another Turtle",
-          c: "Nothing, He floats helplessly through the yawning blackness of the void"
-        },
-        correctAnswer: "b"
-      },
-    ];
-    //This creates the quiz from the questions
-    function makeQuiz() {
-      const output = [];
-      quizQuestions.forEach((currentQuestion, questionNumber) => {
-        // answers go in here
-        const answers = [];
-        for (letter in currentQuestion.answers) {
-          // create a button for each answer
-          answers.push(
-            `<label>
-               <input type="radio" name="question${questionNumber}" value="${letter}">
-                ${letter} :
-                ${currentQuestion.answers[letter]}
-             </label>`
-          );
+var json = {
+    pages: [
+        {
+            questions: [
+                {
+                    type: "matrix",
+                    name: "Quality",
+                    title: "Please indicate if you agree or disagree with the following statements",
+                    columns: [
+                        {
+                            value: 1,
+                            text: "Strongly Disagree"
+                        }, {
+                            value: 2,
+                            text: "Disagree"
+                        }, {
+                            value: 3,
+                            text: "Neutral"
+                        }, {
+                            value: 4,
+                            text: "Agree"
+                        }, {
+                            value: 5,
+                            text: "Strongly Agree"
+                        }
+                    ],
+                    rows: [
+                        {
+                            value: "affordable",
+                            text: "Product is affordable"
+                        }, {
+                            value: "does what it claims",
+                            text: "Product does what it claims"
+                        }, {
+                            value: "better then others",
+                            text: "Product is better than other products on the market"
+                        }, {
+                            value: "easy to use",
+                            text: "Product is easy to use"
+                        }
+                    ]
+                }, {
+                    type: "rating",
+                    name: "satisfaction",
+                    title: "How satisfied are you with the Product?",
+                    isRequired: true,
+                    mininumRateDescription: "Not Satisfied",
+                    maximumRateDescription: "Completely satisfied"
+                }, {
+                    type: "rating",
+                    name: "recommend friends",
+                    visibleIf: "{satisfaction} > 3",
+                    title: "How likely are you to recommend the Product to a friend or co-worker?",
+                    mininumRateDescription: "Will not recommend",
+                    maximumRateDescription: "I will recommend"
+                }, {
+                    type: "comment",
+                    name: "suggestions",
+                    title: "What would make you more satisfied with the Product?"
+                }
+            ]
+        }, {
+            questions: [
+                {
+                    type: "radiogroup",
+                    name: "price to competitors",
+                    title: "Compared to our competitors, do you feel the Product is",
+                    choices: ["Less expensive", "Priced about the same", "More expensive", "Not sure"]
+                }, {
+                    type: "radiogroup",
+                    name: "price",
+                    title: "Do you feel our current price is merited by our product?",
+                    choices: ["correct|Yes, the price is about right", "low|No, the price is too low for your product", "high|No, the price is too high for your product"]
+                }, {
+                    type: "multipletext",
+                    name: "pricelimit",
+                    title: "What is the... ",
+                    items: [
+                        {
+                            name: "mostamount",
+                            title: "Most amount you would every pay for a product like ours"
+                        }, {
+                            name: "leastamount",
+                            title: "The least amount you would feel comfortable paying"
+                        }
+                    ]
+                }
+            ]
+        }, {
+            questions: [
+                {
+                    type: "text",
+                    name: "email",
+                    title: "Thank you for taking our survey. Your survey is almost complete, please enter your email address in the box below if you wish to participate in our drawing, then press the 'Submit' button."
+                }
+            ]
         }
-  
-        // question and answer to output
-        output.push(
-          `<div class="slide">
-             <div class="question"> ${currentQuestion.question} </div>
-             <div class="answers"> ${answers.join("")} </div>
-           </div>`
-        );
-      });
-  
-      // add output to html
-      quizContainer.innerHTML = output.join("");
-    }
-  
-    function displayResults() {
-      // gather answer containers from quiz
-      const answerContainers = quizContainer.querySelectorAll(".answers");
-  
-      let numCorrect = 0;
-  
-      // collect submitted answer
-      quizQuestions.forEach((currentQuestion, questionNumber) => {
-        const answerContainer = answerContainers[questionNumber];
-        const selector = `input[name=question${questionNumber}]:checked`;
-        const userAnswer = (answerContainer.querySelector(selector) || {}).value;
-  
-        // count correct answers
-        if (userAnswer === currentQuestion.correctAnswer) {
-          numCorrect++;
-  
-          // color the answers green
-          answerContainers[questionNumber].style.color = "lightgreen";
-        } else {
-          // if the answer isn't right, color red
-          answerContainers[questionNumber].style.color = "red";
-        }
-      });
-  
-      // show number of correct answers out of total
-      resultsContainer.innerHTML = `${numCorrect} out of ${quizQuestions.length}`;
-    }
-    //displays the current question, and appropriate buttons
-    function showSlide(n) {
-      slides[currentSlide].classList.remove("active-slide");
-      slides[n].classList.add("active-slide");
-      currentSlide = n;
-      
-      if (currentSlide === 0) {
-        previousButton.style.display = "none";
-      } else {
-        previousButton.style.display = "inline-block";
-      }
-      
-      if (currentSlide === slides.length - 1) {
-        nextButton.style.display = "none";
-        submitButton.style.display = "inline-block";
-      } else {
-        nextButton.style.display = "inline-block";
-        submitButton.style.display = "none";
-      }
-    }
-    //advances to next question
-    function showNextSlide() {
-      showSlide(currentSlide + 1);
-    }
-    //goes back to previous question
-    function showPreviousSlide() {
-      showSlide(currentSlide - 1);
-    }
-  
-    const quizContainer = document.getElementById("quiz");
-    const resultsContainer = document.getElementById("results");
-    const submitButton = document.getElementById("submit");
-  
-    // display quiz
-    makeQuiz();
-  
-    const previousButton = document.getElementById("previous");
-    const nextButton = document.getElementById("next");
-    const slides = document.querySelectorAll(".slide");
-    let currentSlide = 0;
-  
-    showSlide(0);
-  
-    // on submit, show results
-    submitButton.addEventListener("click", displayResults);
-    previousButton.addEventListener("click", showPreviousSlide);
-    nextButton.addEventListener("click", showNextSlide);
-  })();
+    ]
+};
+
+window.survey = new Survey.Model(json);
+
+survey
+    .onComplete
+    .add(function (result) {
+        document
+            .querySelector('#surveyResult')
+            .innerHTML = "result: " + JSON.stringify(result.data);
+    });
+
+$("#surveyElement").Survey({model: survey});

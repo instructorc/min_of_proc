@@ -13,14 +13,26 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    
 
+    
+    <!--JQuery Library minimized-->
+        <script src="https://unpkg.com/jquery"></script>
+        <script src="https://surveyjs.azureedge.net/1.0.66/survey.jquery.js"></script>
+        <link href="https://surveyjs.azureedge.net/1.0.66/survey.css" type="text/css" rel="stylesheet"/>
+    
     <!-- Custom Fonts -->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     <link href="vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet">
+    
 
     <!-- Custom CSS -->
+    
     <link href="css/stylish-portfolio.min.css" rel="stylesheet">
+    
+    
+    
 
   </head>
 
@@ -124,16 +136,11 @@
           <em>your</em>
           next website!</h2>
         <aside>Select the answer, then click 'next question'. click 'submit' at the end.</aside>
-        <div class="quiz-container">
-          <div id="quiz"></div>
-        </div>
-        <button id="previous">Previous Question</button>
-        <button id="next">Next Question</button>
-        <button id="submit">Submit Quiz</button>
-        <div id="results"></div>
+        <div id="surveyElement"></div>
+        <div id="surveyResult"></div>
 
 
-        <a class="btn btn-primary btn-xl" href="https://startbootstrap.com/template-overviews/stylish-portfolio/">Download Now!</a>
+        <a class="btn btn-primary btn-xl" onclick="callAwsLambdaFunction()">Download Now!</a>
       </div>
     </section>
 
@@ -153,7 +160,7 @@
                   <p class="mb-0">A yellow pencil with envelopes on a clean, blue backdrop!</p>
                 </span>
               </span>
-              <img class="img-fluid" src="img/portfolio-1.jpg" alt="">
+              <img class="img-fluid" src="img/pro_sign.jpg" alt="">
             </a>
           </div>
           <div class="col-lg-6">
@@ -164,7 +171,7 @@
                   <p class="mb-0">A dark blue background with a colored pencil, a clip, and a tiny ice cream cone!</p>
                 </span>
               </span>
-              <img class="img-fluid" src="img/portfolio-2.jpg" alt="">
+              <img class="img-fluid" src="img/pro_sign.jpg" alt="">
             </a>
           </div>
           <div class="col-lg-6">
@@ -175,7 +182,7 @@
                   <p class="mb-0">Strawberries are such a tasty snack, especially with a little sugar on top!</p>
                 </span>
               </span>
-              <img class="img-fluid" src="img/portfolio-3.jpg" alt="">
+              <img class="img-fluid" src="img/pro_sign.jpg" alt="">
             </a>
           </div>
           <div class="col-lg-6">
@@ -186,7 +193,7 @@
                   <p class="mb-0">A yellow workspace with some scissors, pencils, and other objects.</p>
                 </span>
               </span>
-              <img class="img-fluid" src="img/portfolio-4.jpg" alt="">
+              <img class="img-fluid" src="img/pro_sign.jpg" alt="">
             </a>
           </div>
         </div>
@@ -237,7 +244,8 @@
     </a>
     
     <!--Assessment Script-->
-    <script defer src="js/assessment.js"></script>
+
+    <script src="js/assessment.js"></script>
     <!--AWS Lambda Function Call-->
     <script>
         function callAwsLambdaFunction() {
@@ -247,7 +255,7 @@
                 document.getElementById("myDiv").innerHTML = this.responseText;
             }
         };
-        xhttp.open("GET", "https://test123.ap-south-1.amazonaws.com/dev", true);
+        xhttp.open("GET", "https://o8xtjoy2nl.execute-api.us-east-1.amazonaws.com/default/", true);
         xhttp.send();
 
     }
